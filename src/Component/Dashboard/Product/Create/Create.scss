@@ -1,0 +1,49 @@
+.input-content{
+    position: relative;
+    width: 400px;
+    margin: 20px;
+}
+
+.form-content{
+    background: var(--light);
+    width: 1200px;
+    height: 50vh;
+    border-radius: 20px;
+    padding: 15px;
+}
+
+.input-content input{
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid var(--primary);
+    font-size: 18px;
+}
+
+.input-content span{
+    position: absolute;
+    left: 0;
+    pointer-events: none;
+    padding: 12px;
+    transition: 0.5s;
+    color: var(--primary);
+}
+.input-content input:valid ~ span,
+.input-content input:focus ~ span{
+    color: var(--primary);
+    transform: translateX(10px) translateY(-7px);
+    padding: 0 5px;
+    background: var(--light);
+}
+
+.input-content select{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px var(--primary) solid;
+}
+
+.primary-button{
+    margin-left: 20px;
+}
