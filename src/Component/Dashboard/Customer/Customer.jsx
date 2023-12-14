@@ -58,7 +58,9 @@ const Customer = () => {
                     <tr key={user.id}>
                       <td>{user.email}</td>
                       <td>{user.fullName}</td>
-                     <td><i class='bx bxs-trash' ></i></td>
+                      <td>
+                        <i class="bx bxs-trash"></i>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

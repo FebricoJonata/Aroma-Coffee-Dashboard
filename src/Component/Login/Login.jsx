@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
-import NET from 'vanta/dist/vanta.net.min';
+import Swal from "sweetalert2";
 import "./Login.scss";
 
 const Login = () => {
@@ -8,42 +8,15 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const vantaRef = useRef(null);
-
-  useEffect(() => {
-    // Ensure the component is fully mounted before initializing Vanta.NET
-    if (!vantaRef.current) return;
-
-    const vantaEffect = NET({
-      el: vantaRef.current,
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 200.00,
-      minWidth: 200.00,
-      scale: 1.00,
-      scaleMobile: 1.00,
-      color: 0x8c6b0a,
-      backgroundColor: 0x20202,
-    });
-
-    // Cleanup effect on component unmount
-    return () => {
-      if (vantaEffect) {
-        vantaEffect.destroy();
-      }
-    };
-  }, []); // Empty dependency array to run the effect only once on mount
-
   const handleLogin = () => {
     const adminEmail = "admin@example.com";
     const adminPassword = "admin123";
 
     if (email === adminEmail && password === adminPassword) {
-      alert("Admin logged in successfully");
+      Swal.fire("Logged in!", "Admin logged in successfully", "success");
       setLoggedIn(true);
     } else {
-      alert("Invalid credentials. Only admin can log in.");
+      Swal.fire("Invalid Crendentials!", "Only admin can log in.", "error");
     }
   };
 
@@ -53,30 +26,44 @@ const Login = () => {
 
   return (
     <div id="login">
-      <h1>Login</h1>
-      <form>
-        <label>
-          Email:
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <br />
-        <button type="button" onClick={handleLogin}>
-          Log in
-        </button>
-      </form>
+      <div className="login-content">
+        <h1>Login</h1>
+        <form>
+          <div className="input-content">
+            <label>
+              Email
+              <input
+                name="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter Email Here"
+                required
+              />
+            </label>
+          </div>
+          <div className="input-content">
+            <label>
+              Password
+              <input
+                name="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter Password Here"
+                required
+              />
+            </label>
+          </div>
+          <button
+            type="button"
+            onClick={handleLogin}
+            className="primary-button"
+          >
+            Log in
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

@@ -35,8 +35,8 @@ const Layout = () => {
             <li>
               <i class="bx bxs-group"></i>
               <span class="text">
-                <h3>2834</h3>
-                <p>User</p>
+                <h3>1000</h3>
+                <p>Customer</p>
               </span>
             </li>
             <li>
