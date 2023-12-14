@@ -1,0 +1,32 @@
+#login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary);
+  height: 100vh;
+  font-family: var(--poppins);
+}
+
+.login-content {
+  background-color: white;
+  border-radius: 20px;
+  padding: 50px;
+
+
+  .input-content{
+    label{
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+  }
+
+  .input-content input::placeholder {
+    color: var(--primary);
+    font-size: 14px;
+  }
+
+  .primary-button {
+    color: white;
+    font-weight: 500;
+  }
+}

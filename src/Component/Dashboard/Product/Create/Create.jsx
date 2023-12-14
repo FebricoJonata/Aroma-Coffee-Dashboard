@@ -1,6 +1,7 @@
 import Navbar from "../../Navbar/Navbar";
 import SideBar from "../../Sidebar/Sidebar";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import "./Create.scss";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, storage } from "../../../../firebase";
@@ -81,8 +82,10 @@ const Create = () => {
         timeStamp: serverTimestamp(),
       });
       console.log("Document written with ID: ", createProduct.id);
+      Swal.fire("Product Added!", "Successfully add product", "success");
     } catch (error) {
       console.error("Error adding document: ", error);
+      Swal.fire("Failed Add Product", "Failed to add product", "error");
     }
   };
 
@@ -147,7 +150,6 @@ const Create = () => {
                     disabled={per !== null && per < 100}
                     type="submit"
                   >
-                    {/* <a href="/product">Create Product</a> */}
                     Create Product
                   </button>
                 </form>
