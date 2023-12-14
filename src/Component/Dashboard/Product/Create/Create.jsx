@@ -78,7 +78,7 @@ const Create = () => {
         price: price,
         description: description,
         img: data.img,
-        timeStamp: serverTimestamp(),
+        // timeStamp: serverTimestamp(),
       });
       console.log("Document written with ID: ", createProduct.id);
     } catch (error) {
