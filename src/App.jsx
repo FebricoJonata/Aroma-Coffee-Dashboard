@@ -7,11 +7,15 @@ import Customer from "./Component/Dashboard/Customer/Customer";
 import Create from "./Component/Dashboard/Product/Create/Create";
 
 function App() {
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Layout />} />
+        <Route
+          path="/dashboard"
+          element={<Layout/>}
+        />{" "}
         <Route path="/product" element={<Product />} />
         <Route path="/customer" element={<Customer />} />
         <Route path="/product/create" element={<Create />} />

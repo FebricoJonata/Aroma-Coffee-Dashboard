@@ -3,6 +3,7 @@ import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase";
 import Navbar from "../Navbar/Navbar";
 import SideBar from "../Sidebar/Sidebar";
+import Layout from "../Layout";
 
 const Customer = () => {
   const [users, setUsers] = useState([]);
@@ -26,6 +27,7 @@ const Customer = () => {
     fetchUsers();
   }, []);
 
+
   return (
     <>
       <SideBar />
@@ -37,7 +39,6 @@ const Customer = () => {
               <h1>Customer</h1>
             </div>
           </div>
-
           <div className="table-data">
             <div className="order">
               <div className="head">
