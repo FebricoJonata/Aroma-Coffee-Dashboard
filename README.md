@@ -4,10 +4,10 @@ Introducing the Aroma Coffee Admin Dashboard, tailored for developers using Reac
 
 ## Screenshots
 
-![App Screenshot](</readme-assets/login.png>))
-![App Screenshot](</readme-assets/dashboard.png>))
-![App Screenshot](</readme-assets/product.png>))
-![App Screenshot](</readme-assets/customer.png>))
+![App Screenshot](</readme-assets/login.png>)
+![App Screenshot](</readme-assets/dashboard.png>)
+![App Screenshot](</readme-assets/product.png>)
+![App Screenshot](</readme-assets/customer.png>)
 
 
 ## Demo
