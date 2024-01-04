@@ -175,3 +175,8 @@ const Product = () => {
 };
 
 export default Product;
+
+
+// {windowWidth > 768 ? (
+  
+// ) : null}

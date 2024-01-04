@@ -12,6 +12,35 @@ const Create = () => {
   const [data, setData] = useState({});
   const [per, setPerc] = useState(null);
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    // Toggle sidebar based on window width
+    const sidebar = document.getElementById("sidebar");
+    if (window.innerWidth <= 768) {
+      sidebar.classList.add("hide");
+    }
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Remove event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Toggle sidebar based on window width
+    const sidebar = document.getElementById("sidebar");
+    if (window.innerWidth <= 768) {
+      sidebar.classList.add("hide");
+    }
+  }, []);
+
   useEffect(() => {
     const uploadFile = () => {
       const name = new Date().getTime() + file.name;
@@ -98,63 +127,116 @@ const Create = () => {
           <div class="head-title">
             <div class="left">
               <h1>Create Item</h1>
-              <div class="form-content">
-                <form action="POST" onSubmit={handleAdd}>
-                  <div class="input-content">
-                    <input
-                      name="name"
-                      type="text"
-                      id="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                    />
-                    <span>Name</span>
-                    <br />
-                  </div>
-                  <div class="input-content">
-                    <input
-                      name="price"
-                      type="text"
-                      id="price"
-                      value={formData.price}
-                      onChange={handleChange}
-                      required
-                    />
-                    <span>Price</span>
-                    <br />
-                  </div>
-                  <div class="input-content">
-                    <input
-                      name="description"
-                      type="text"
-                      id="description"
-                      value={formData.description}
-                      onChange={handleChange}
-                      required
-                    />
-                    <span>Description</span>
-                    <br />
-                  </div>
+              {windowWidth > 768 ? (
+                <div class="form-content">
+                  <form action="POST" onSubmit={handleAdd}>
+                    <div class="input-content">
+                      <input
+                        name="name"
+                        type="text"
+                        id="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                      />
+                      <span>Name</span>
+                      <br />
+                    </div>
+                    <div class="input-content">
+                      <input
+                        name="price"
+                        type="text"
+                        id="price"
+                        value={formData.price}
+                        onChange={handleChange}
+                        required
+                      />
+                      <span>Price</span>
+                      <br />
+                    </div>
+                    <div class="input-content">
+                      <input
+                        name="description"
+                        type="text"
+                        id="description"
+                        value={formData.description}
+                        onChange={handleChange}
+                        required
+                      />
+                      <span>Description</span>
+                      <br />
+                    </div>
 
-                  <input
-                    type="file"
-                    id="file"
-                    onChange={(e) => setFile(e.target.files[0])}
-                    accept="image/*"
-                  />
-                  <br />
+                    <input
+                      type="file"
+                      id="file"
+                      onChange={(e) => setFile(e.target.files[0])}
+                      accept="image/*"
+                    />
+                    <br />
 
-                  <button
-                    class="primary-button"
-                    disabled={per !== null && per < 100}
-                    type="submit"
-                  >
-                    Create Product
-                  </button>
-                </form>
-              </div>
+                    <button
+                      class="primary-button"
+                      disabled={per !== null && per < 100}
+                      type="submit"
+                    >
+                      Create Product
+                    </button>
+                  </form>
+                </div>
+              ) : null}
             </div>
+            {windowWidth <= 768 ? (
+              <div class="input-container">
+                <input
+                  name="name"
+                  type="text"
+                  id="name"
+                  placeholder="Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="input-content-styling"
+                />
+
+                <input
+                  name="price"
+                  type="text"
+                  id="price"
+                  value={formData.price}
+                  placeholder="Price"
+                  onChange={handleChange}
+                  required
+                  className="input-content-styling"
+                />
+
+                <input
+                  name="description"
+                  type="text"
+                  id="description"
+                  placeholder="Description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  required
+                  className="input-content-styling"
+                />
+                <br />
+                <input
+                  type="file"
+                  id="file"
+                  onChange={(e) => setFile(e.target.files[0])}
+                  accept="image/*"
+                />
+                <br />
+                <button
+                  class="primary-button"
+                  disabled={per !== null && per < 100}
+                  type="submit"
+                >
+                  Create Product
+                </button>
+              </div>
+            ) : null}
           </div>
         </main>
       </div>
