@@ -4,9 +4,33 @@ import Navbar from "./Navbar/Navbar";
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase";
+import { fontWeight } from "@mui/system";
 
 const Layout = () => {
   const [transactions, setTransactions] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    // Toggle sidebar based on window width
+    const sidebar = document.getElementById("sidebar");
+    if (window.innerWidth <= 768) {
+      sidebar.classList.add("hide");
+    }
+
+    fetchTransaction();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Remove event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const fetchTransaction = async () => {
     try {
@@ -27,7 +51,7 @@ const Layout = () => {
   useEffect(() => {
     // Toggle sidebar based on window width
     const sidebar = document.getElementById("sidebar");
-    if (window.innerWidth < 768) {
+    if (window.innerWidth <= 768) {
       sidebar.classList.add("hide");
     }
 
@@ -77,46 +101,109 @@ const Layout = () => {
             </li>
           </ul>
 
-          <div className="table-data">
-            <div className="order">
-              <div className="head">
-                <h3>Customer</h3>
-                <i className="bx bx-search"></i>
-                <i className="bx bx-filter"></i>
+          {windowWidth > 768 ? (
+            <div className="table-data">
+              <div className="order">
+                <div className="head">
+                  <h3>Customer</h3>
+                  <i className="bx bx-search"></i>
+                  <i className="bx bx-filter"></i>
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Email</th>
+                      <th>Purchased Items</th>
+                      <th>TimeStamp</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {transactions.map((transaction) => (
+                      <tr key={transaction.id}>
+                        <td>{transaction.email}</td>
+
+                        <td>
+                          <ul>
+                            {transaction.purchasedItems.map((item, index) => (
+                              <li key={index}>
+                                Product: {item.productName}, Price: {item.price}
+                                , Quantity: {item.quantity}, Size: {item.size}
+                              </li>
+                            ))}
+                          </ul>
+                        </td>
+
+                        <td>
+                          {transaction.timestamp.toDate().toLocaleString()}
+                        </td>
+
+                        <td>
+                          <i className="bx bxs-trash"></i>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Email</th>
-                    <th>Purchased Items</th>
-                    <th>TimeStamp</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {transactions.map((transaction) => (
-                    <tr key={transaction.id}>
-                      <td>{transaction.email}</td>
-                      <td>
-                        <ul>
-                          {transaction.purchasedItems.map((item, index) => (
+            </div>
+          ) : null}
+
+          {/* ======BAGIAN BIMO======= */}
+          {/* TABLE DATA BEGIN */}
+          {windowWidth <= 768
+            ? transactions.map((transaction) => (
+                <div key={transaction.id} className="table-data">
+                  <div className="order">
+                    {/* EMAIL */}
+                    <div>
+                      <h4>Email</h4>
+                      <p>{transaction.email}</p>
+                      <br />
+                    </div>
+
+                    {/* ORDERS */}
+                    <div>
+                      <h4>Purchased Items</h4>
+                      <div>
+                        {transaction.purchasedItems.map((item, index) => (
+                          <div className="purchased-items-container">
                             <li key={index}>
                               Product: {item.productName}, Price: {item.price},
                               Quantity: {item.quantity}, Size: {item.size}
                             </li>
-                          ))}
-                        </ul>
-                      </td>
-                      <td>{transaction.timestamp.toDate().toLocaleString()}</td>
-                      <td>
-                        <i className="bx bxs-trash"></i>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* TIMESTAMP */}
+                    <div>
+                      <p>{transaction.timestamp.toDate().toLocaleString()}</p>
+                    </div>
+
+                    {/* DELETE BUTTON */}
+                    <div>
+                      <br />
+                      <button className="btn-style" type="submit">
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))
+            : null}
+
+          {/* {windowWidth <= 768 ? (
+            {transactions.map((transaction) => (
+              <div key={transaction.id}>
+              </div>
+            ))}
+            
+          ) : null} */}
+
+          {/* TABLE DATA END */}
         </main>
       </div>
     </>

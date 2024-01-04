@@ -1,0 +1,35 @@
+@media screen and (max-width: 768px) {
+    img{
+        height: 80px;
+        width: 80px;
+        object-fit: cover;
+        border-radius:50%;
+    }
+
+    .product-img-name{
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .space-name{
+        padding-top: 5%;
+    }
+
+    .button-del-product{
+        display: flex;
+        justify-content: center;
+    }
+
+    .btn-style-item{
+        background-color: rgb(249, 60, 60);
+        color: white;
+        padding: 4%;
+        width: 100%;
+        border-radius:5px;
+        border: none;
+        margin-top: 5px;
+    }
+  }

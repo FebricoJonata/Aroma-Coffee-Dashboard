@@ -1,9 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Sidebar.scss";
 import { useLocation } from "react-router-dom";
 
 const SideBar = () => {
   const location = useLocation();
+  const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSidebarVisible(window.innerWidth > 768);
+    };
+
+    handleResize(); // Call it initially to set the sidebar based on the current width
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      // Cleanup the event listener when the component is unmounted
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const allSideMenu = document.querySelectorAll(
@@ -33,8 +49,36 @@ const SideBar = () => {
     });
   }, [location.pathname]);
 
+  // useEffect(() => {
+  //   const allSideMenu = document.querySelectorAll(
+  //     "#sidebar .side-menu.top li a"
+  //   );
+
+  //   allSideMenu.forEach((item) => {
+  //     const li = item.parentElement;
+  //     const href = item.getAttribute("href");
+
+  //     // Check if the item's href matches any of the specified routes
+  //     if (
+  //       location.pathname === href ||
+  //       (location.pathname.startsWith(href) && href !== "/")
+  //     ) {
+  //       li.classList.add("active");
+  //     } else {
+  //       li.classList.remove("active");
+  //     }
+
+  //     item.addEventListener("click", function () {
+  //       allSideMenu.forEach((i) => {
+  //         i.parentElement.classList.remove("active");
+  //       });
+  //       li.classList.add("active");
+  //     });
+  //   });
+  // }, [location.pathname]);
+
   return (
-    <section id="sidebar">
+    <section id="sidebar" className={isSidebarVisible ? "" : "hide"}>
       <a href="#" class="brand">
         <i class="bx bxs-coffee"></i>
         <span class="text">Aroma Coffe</span>
